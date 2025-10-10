@@ -86,9 +86,9 @@ export default function Road() {
       ref={ref}
       className="relative py-16 px-4 text-white"
     >
-      <h2 className="text-3xl sm:text-4xl font-bold text-center mb-16 text-cyan-400">
-        Roadmap
-      </h2>
+      <h2 className="text-4xl sm:text-5xl font-extrabold text-center mb-16 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">
+          Roadmap
+        </h2>
 
       {/* Simple Road Line */}
       <div className="relative max-w-4xl mx-auto mb-12">
