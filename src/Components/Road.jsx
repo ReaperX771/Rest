@@ -187,8 +187,8 @@ export default function Road() {
           <div className="absolute top-1/2 left-4 right-4 h-8 bg-cyan-500/10 blur-xl rounded-full -translate-y-1/2"></div>
         </div>
 
-        {/* 🔹 Enhanced Roadmap Phases */}
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* 🔹 Enhanced Roadmap Phases - Fixed Mobile Scaling */}
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
           {phases.map((phase, index) => {
             const IconComponent = phase.icon;
             const isAccessible = isPhaseAccessible(index);
@@ -197,15 +197,15 @@ export default function Road() {
               <div
                 key={index}
                 className={`group ${
-                  phase.side === "left" ? "lg:pr-8" : "lg:pl-8"
-                } ${index >= 2 ? "lg:mt-8" : ""}`}
+                  phase.side === "left" ? "lg:pr-6" : "lg:pl-6"
+                } ${index >= 2 ? "lg:mt-6" : ""}`}
               >
                 <div
-                  className={`relative p-8 rounded-3xl backdrop-blur-xl border-2 transition-all duration-700 transform-gpu ${
+                  className={`relative p-6 rounded-2xl backdrop-blur-xl border-2 transition-all duration-500 transform-gpu ${
                     phase.status === "completed"
                       ? "bg-gradient-to-br from-green-500/10 to-emerald-600/10 border-green-500/30"
                       : phase.status === "current"
-                      ? "bg-gradient-to-br from-cyan-500/15 to-blue-600/15 border-cyan-400/50 shadow-2xl shadow-cyan-500/25"
+                      ? "bg-gradient-to-br from-cyan-500/15 to-blue-600/15 border-cyan-400/50 shadow-xl shadow-cyan-500/20"
                       : "bg-gradient-to-br from-purple-500/10 to-indigo-600/10 border-purple-500/30"
                   } ${
                     visible
@@ -213,9 +213,9 @@ export default function Road() {
                       : "opacity-0 translate-y-12"
                   } ${
                     index === activePhase 
-                      ? "scale-105 ring-4 ring-cyan-500/30" 
+                      ? "lg:scale-105 lg:ring-4 lg:ring-cyan-500/30 scale-100 ring-2 ring-cyan-500/20" 
                       : "scale-100"
-                  } ${isAccessible ? "cursor-pointer hover:scale-102" : "cursor-not-allowed opacity-80"}`}
+                  } ${isAccessible ? "cursor-pointer lg:hover:scale-102" : "cursor-not-allowed opacity-80"}`}
                   style={{
                     transitionDelay: visible ? `${index * 150}ms` : "0ms"
                   }}
@@ -225,33 +225,38 @@ export default function Road() {
                   {/* Status Ribbon */}
                   <div className={`absolute -top-3 ${
                     phase.side === "left" ? "-left-3" : "-right-3"
-                  } flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold ${
+                  } flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold ${
                     phase.status === "completed"
                       ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg shadow-green-500/50"
                       : phase.status === "current"
                       ? "bg-gradient-to-r from-cyan-400 to-blue-500 text-gray-900 shadow-lg shadow-cyan-400/50"
                       : "bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-lg shadow-purple-500/50"
                   }`}>
-                    <IconComponent className="text-sm" />
-                    {phase.status === "current" ? "IN PROGRESS" : phase.status.toUpperCase()}
+                    <IconComponent className="text-xs" />
+                    <span className="hidden sm:inline">
+                      {phase.status === "current" ? "IN PROGRESS" : phase.status.toUpperCase()}
+                    </span>
+                    <span className="sm:hidden">
+                      {phase.status === "current" ? "LIVE" : phase.status.slice(0, 3).toUpperCase()}
+                    </span>
                     {!isAccessible && <FaLock className="text-xs ml-1" />}
                   </div>
 
                   {/* Phase Number */}
-                  <div className={`absolute -top-4 ${
-                    phase.side === "left" ? "-right-4" : "-left-4"
-                  } w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-gray-800 border-2 ${
+                  <div className={`absolute -top-3 ${
+                    phase.side === "left" ? "-right-3" : "-left-3"
+                  } w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold bg-gray-800 border-2 ${
                     isAccessible ? "border-cyan-400 text-cyan-300" : "border-gray-600 text-gray-400"
                   } shadow-lg`}>
                     {index + 1}
                   </div>
 
                   {/* Content */}
-                  <h3 className={`text-2xl font-bold mb-4 bg-gradient-to-r ${phase.color} bg-clip-text text-transparent`}>
+                  <h3 className={`text-xl sm:text-2xl font-bold mb-3 bg-gradient-to-r ${phase.color} bg-clip-text text-transparent`}>
                     {phase.title}
                   </h3>
                   
-                  <p className="text-gray-200 mb-6 leading-relaxed text-lg">
+                  <p className="text-gray-200 mb-4 leading-relaxed text-sm sm:text-lg">
                     {phase.text}
                   </p>
 
@@ -260,17 +265,17 @@ export default function Road() {
                     {phase.features.map((feature, featureIndex) => (
                       <div
                         key={featureIndex}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-300 ${
+                        className={`flex items-center gap-2 px-3 py-2 rounded-lg border transition-all duration-300 ${
                           isAccessible 
                             ? "bg-white/5 border-white/10 hover:bg-white/10" 
                             : "bg-white/3 border-white/5"
                         }`}
                       >
-                        <div className={`w-2 h-2 rounded-full ${
+                        <div className={`w-1.5 h-1.5 rounded-full ${
                           phase.status === "completed" ? "bg-green-400" :
                           phase.status === "current" ? "bg-cyan-400 animate-pulse" : "bg-purple-400"
                         }`}></div>
-                        <span className={`font-medium ${
+                        <span className={`font-medium text-xs sm:text-sm ${
                           isAccessible ? "text-gray-200" : "text-gray-400"
                         }`}>{feature}</span>
                       </div>
@@ -279,8 +284,8 @@ export default function Road() {
 
                   {/* Connecting Line for Desktop */}
                   <div className={`hidden lg:block absolute top-1/2 ${
-                    phase.side === "left" ? "-right-8" : "-left-8"
-                  } w-8 h-1 bg-cyan-400/50 transform -translate-y-1/2`}></div>
+                    phase.side === "left" ? "-right-6" : "-left-6"
+                  } w-6 h-1 bg-cyan-400/50 transform -translate-y-1/2`}></div>
                 </div>
               </div>
             );
@@ -288,16 +293,16 @@ export default function Road() {
         </div>
 
         {/* 🔹 Progress Indicator */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-16 p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10">
-          <span className="text-gray-300 text-lg font-semibold">Journey Progress</span>
-          <div className="flex items-center gap-4 flex-1 max-w-md">
-            <div className="w-full h-3 bg-gray-800 rounded-full overflow-hidden shadow-inner">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-12 p-4 sm:p-6 bg-white/5 rounded-2xl backdrop-blur-sm border border-white/10">
+          <span className="text-gray-300 text-sm sm:text-lg font-semibold">Journey Progress</span>
+          <div className="flex items-center gap-3 flex-1 max-w-md">
+            <div className="w-full h-2 sm:h-3 bg-gray-800 rounded-full overflow-hidden shadow-inner">
               <div 
                 className="h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 transition-all duration-1000 ease-out rounded-full"
                 style={{ width: `${((currentPhaseIndex + 1) / phases.length) * 100}%` }}
               ></div>
             </div>
-            <span className="text-cyan-400 text-lg font-bold min-w-12">
+            <span className="text-cyan-400 text-sm sm:text-lg font-bold min-w-8 sm:min-w-12">
               {Math.round(((currentPhaseIndex + 1) / phases.length) * 100)}%
             </span>
           </div>
