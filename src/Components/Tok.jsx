@@ -100,8 +100,8 @@ export default function Tok() {
             <div className="text-gray-400 text-sm">Total</div>
           </div>
           <div className="text-center p-4 rounded-lg bg-white/5 border border-white/10">
-            <div className="text-pink-400 font-bold text-lg">ERC-20</div>
-            <div className="text-gray-400 text-sm">Standard</div>
+            <div className="text-pink-400 font-bold text-lg">Sol</div>
+            <div className="text-gray-400 text-sm">Network</div>
           </div>
         </div>
       </div>
