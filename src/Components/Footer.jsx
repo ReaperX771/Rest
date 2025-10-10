@@ -1,5 +1,5 @@
 import { FaTwitter, FaTelegramPlane, FaDiscord, FaGlobe } from "react-icons/fa";
-import logo from '../assets/images/logo.pngadd'
+import logo from '../assets/images/logo.png'
 
 export default function Footer() {
   return (
