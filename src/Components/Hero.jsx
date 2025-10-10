@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from "react";
+import skate from '../assets/images/skate.png';
 
 export default function Hero() {
   const [displayText, setDisplayText] = useState('');
   const [visible, setVisible] = useState(false);
+  const [skatePosition, setSkatePosition] = useState(-100);
   const ref = useRef(null);
   const fullText = "REST";
   
@@ -18,6 +20,7 @@ export default function Hero() {
 
   useEffect(() => {
     if (visible) {
+      // Typing animation
       let i = 0;
       const typing = setInterval(() => {
         if (i < fullText.length) {
@@ -27,8 +30,19 @@ export default function Hero() {
           clearInterval(typing);
         }
       }, 150);
-      
-      return () => clearInterval(typing);
+
+      // Skating animation
+      const skateInterval = setInterval(() => {
+        setSkatePosition(prev => {
+          if (prev > 100) return -100;
+          return prev + 0.5;
+        });
+      }, 20);
+
+      return () => {
+        clearInterval(typing);
+        clearInterval(skateInterval);
+      };
     }
   }, [visible]);
 
@@ -38,6 +52,17 @@ export default function Hero() {
       id="home"
       className="min-h-screen flex items-center justify-center px-4 sm:px-6 text-white relative overflow-hidden"
     >
+      {/* Skating Cat */}
+      <img 
+        src={skate} 
+        alt="Skating cat"
+        className="absolute bottom-10 z-20 transition-all duration-100"
+        style={{
+          left: `${skatePosition}%`,
+          transform: 'scaleX(-1)'
+        }}
+      />
+
       <div className="relative z-10 text-center max-w-4xl mx-auto">
         {/* Main Heading */}
         <h1 className={`text-5xl sm:text-7xl md:text-8xl font-black mb-6 transition-all duration-1000 ${
@@ -87,7 +112,7 @@ export default function Hero() {
         </div>
       </div>
       
-      {/* Floating elements */}
+      {/* Scroll indicator */}
       <div className={`absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce transition-all duration-1000 delay-1000 ${
         visible ? 'opacity-100' : 'opacity-0'
       }`}>

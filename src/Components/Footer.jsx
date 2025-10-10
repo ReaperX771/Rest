@@ -1,4 +1,5 @@
 import { FaTwitter, FaTelegramPlane, FaDiscord, FaGlobe } from "react-icons/fa";
+import logo from '../assets/images/logo.pngadd'
 
 export default function Footer() {
   return (
@@ -6,9 +7,10 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
         {/* Logo / Name */}
         <div className="text-center sm:text-left">
-          <h1 className="text-3xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">
+          {/* <h1 className="text-3xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">
             REST
-          </h1>
+          </h1> */}
+           <img className="w-17" src={logo}/>
           <p className="text-sm mt-1 text-gray-400">
             Sleep better knowing your meme token works for you.
           </p>

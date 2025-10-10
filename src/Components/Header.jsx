@@ -10,6 +10,7 @@ import {
   FaRoad,
   FaUsers,
 } from "react-icons/fa";
+import logo from '../assets/images/logo.png'
 
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
@@ -26,9 +27,10 @@ export default function Header() {
     <header className="fixed top-0 left-0 w-full z-50 bg-black/60 backdrop-blur-lg border-b border-blue-900/30 text-white">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
-        <h1 className="text-2xl font-extrabold text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text">
+        {/* <h1 className="text-2xl font-extrabold text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text">
           REST
-        </h1>
+        </h1> */}
+        <img className="w-17" src={logo}/>
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
