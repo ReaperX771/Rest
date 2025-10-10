@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { FaTruckMonster, FaCheckCircle, FaClock, FaRocket, FaGlobe, FaStar } from "react-icons/fa";
+import { FaTruckMonster, FaCheckCircle, FaClock, FaRocket, FaGlobe, FaStar, FaLock } from "react-icons/fa";
 
 export default function Road() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
-  const [activePhase, setActivePhase] = useState(0);
+  const [activePhase, setActivePhase] = useState(1); // Start at current phase (Phase 2)
   const [truckPosition, setTruckPosition] = useState(0);
 
   useEffect(() => {
@@ -35,7 +35,8 @@ export default function Road() {
       icon: FaRocket,
       status: "completed",
       features: ["Token Launch", "Community Building", "Brand Identity"],
-      color: "from-green-400 to-emerald-600"
+      color: "from-green-400 to-emerald-600",
+      index: 0
     },
     {
       title: "Phase 2 — Deep Sleep",
@@ -44,7 +45,8 @@ export default function Road() {
       icon: FaClock,
       status: "current",
       features: ["NFT Collection", "CEX Listings", "Influencer Marketing"],
-      color: "from-cyan-400 to-blue-500"
+      color: "from-cyan-400 to-blue-500",
+      index: 1
     },
     {
       title: "Phase 3 — Dreamland",
@@ -53,7 +55,8 @@ export default function Road() {
       icon: FaCheckCircle,
       status: "upcoming",
       features: ["Staking Platform", "RESTverse Beta", "Early Access"],
-      color: "from-purple-400 to-indigo-600"
+      color: "from-purple-400 to-indigo-600",
+      index: 2
     },
     {
       title: "Phase 4 — Eternal Rest",
@@ -62,7 +65,8 @@ export default function Road() {
       icon: FaGlobe,
       status: "upcoming",
       features: ["Global Partnerships", "Cross-chain", "RESTverse 2.0"],
-      color: "from-pink-500 to-rose-600"
+      color: "from-pink-500 to-rose-600",
+      index: 3
     },
   ];
 
@@ -71,18 +75,28 @@ export default function Road() {
     return (activePhase * phaseWidth) + (truckPosition * phaseWidth / 100);
   };
 
+  const isPhaseAccessible = (phaseIndex) => {
+    const currentPhaseIndex = phases.findIndex(phase => phase.status === "current");
+    return phaseIndex <= currentPhaseIndex;
+  };
+
+  const handlePhaseClick = (phaseIndex) => {
+    if (isPhaseAccessible(phaseIndex)) {
+      setActivePhase(phaseIndex);
+    }
+  };
+
+  const currentPhaseIndex = phases.findIndex(phase => phase.status === "current");
+
   return (
     <section
       id="roadmap"
       ref={ref}
       className="relative py-24 px-4 sm:px-6 text-white overflow-hidden"
     >
-      {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/20"></div>
-      
       {/* Floating Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <div
             key={i}
             className="absolute animate-float"
@@ -112,30 +126,40 @@ export default function Road() {
 
           {/* Phase Markers */}
           <div className="absolute top-1/2 left-4 right-4 flex justify-between -translate-y-1/2">
-            {phases.map((phase, i) => (
-              <div
-                key={i}
-                className={`flex flex-col items-center cursor-pointer transition-all duration-500 ${
-                  i <= activePhase ? "scale-110" : "scale-100"
-                }`}
-                onClick={() => setActivePhase(i)}
-              >
+            {phases.map((phase, i) => {
+              const isAccessible = isPhaseAccessible(i);
+              const isCurrent = phase.status === "current";
+              
+              return (
                 <div
-                  className={`w-6 h-6 rounded-full border-4 transition-all duration-500 ${
-                    i < activePhase
-                      ? "bg-green-400 border-green-400 shadow-lg shadow-green-400/50"
-                      : i === activePhase
-                      ? "bg-cyan-400 border-cyan-400 animate-pulse shadow-lg shadow-cyan-400/50"
-                      : "bg-gray-600 border-gray-700"
-                  }`}
-                />
-                <span className={`text-xs mt-2 font-semibold transition-all duration-500 ${
-                  i <= activePhase ? "text-cyan-300 opacity-100" : "text-gray-500 opacity-70"
-                }`}>
-                  Phase {i + 1}
-                </span>
-              </div>
-            ))}
+                  key={i}
+                  className={`flex flex-col items-center transition-all duration-500 ${
+                    isAccessible ? "cursor-pointer" : "cursor-not-allowed"
+                  } ${i === activePhase ? "scale-110" : "scale-100"}`}
+                  onClick={() => handlePhaseClick(i)}
+                >
+                  <div className="relative">
+                    <div
+                      className={`w-6 h-6 rounded-full border-4 transition-all duration-500 ${
+                        i < currentPhaseIndex
+                          ? "bg-green-400 border-green-400 shadow-lg shadow-green-400/50"
+                          : isCurrent
+                          ? "bg-cyan-400 border-cyan-400 animate-pulse shadow-lg shadow-cyan-400/50"
+                          : "bg-gray-600 border-gray-700"
+                      } ${isAccessible ? "hover:scale-110" : ""}`}
+                    />
+                    {!isAccessible && (
+                      <FaLock className="absolute -top-1 -right-1 text-gray-400 text-xs" />
+                    )}
+                  </div>
+                  <span className={`text-xs mt-2 font-semibold transition-all duration-500 ${
+                    isAccessible ? "text-cyan-300 opacity-100" : "text-gray-500 opacity-70"
+                  }`}>
+                    Phase {i + 1}
+                  </span>
+                </div>
+              );
+            })}
           </div>
 
           {/* Single Animated Truck */}
@@ -147,7 +171,7 @@ export default function Road() {
           >
             <div className="relative">
               <FaTruckMonster 
-                className="text-cyan-400 text-6xl drop-shadow-2xl transform hover:scale-110 transition-transform duration-300" 
+                className="text-cyan-400 text-6xl drop-shadow-2xl transform transition-transform duration-300" 
               />
               {/* Exhaust */}
               <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
@@ -167,6 +191,8 @@ export default function Road() {
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
           {phases.map((phase, index) => {
             const IconComponent = phase.icon;
+            const isAccessible = isPhaseAccessible(index);
+            
             return (
               <div
                 key={index}
@@ -188,13 +214,13 @@ export default function Road() {
                   } ${
                     index === activePhase 
                       ? "scale-105 ring-4 ring-cyan-500/30" 
-                      : "scale-100 hover:scale-102"
-                  } cursor-pointer`}
+                      : "scale-100"
+                  } ${isAccessible ? "cursor-pointer hover:scale-102" : "cursor-not-allowed opacity-80"}`}
                   style={{
                     transitionDelay: visible ? `${index * 150}ms` : "0ms"
                   }}
-                  onClick={() => setActivePhase(index)}
-                  onMouseEnter={() => setActivePhase(index)}
+                  onClick={() => handlePhaseClick(index)}
+                  onMouseEnter={() => isAccessible && setActivePhase(index)}
                 >
                   {/* Status Ribbon */}
                   <div className={`absolute -top-3 ${
@@ -208,12 +234,15 @@ export default function Road() {
                   }`}>
                     <IconComponent className="text-sm" />
                     {phase.status === "current" ? "IN PROGRESS" : phase.status.toUpperCase()}
+                    {!isAccessible && <FaLock className="text-xs ml-1" />}
                   </div>
 
                   {/* Phase Number */}
                   <div className={`absolute -top-4 ${
                     phase.side === "left" ? "-right-4" : "-left-4"
-                  } w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-gray-800 border-2 border-cyan-400 text-cyan-300 shadow-lg`}>
+                  } w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-gray-800 border-2 ${
+                    isAccessible ? "border-cyan-400 text-cyan-300" : "border-gray-600 text-gray-400"
+                  } shadow-lg`}>
                     {index + 1}
                   </div>
 
@@ -231,13 +260,19 @@ export default function Road() {
                     {phase.features.map((feature, featureIndex) => (
                       <div
                         key={featureIndex}
-                        className="flex items-center gap-3 px-4 py-3 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-all duration-300"
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-300 ${
+                          isAccessible 
+                            ? "bg-white/5 border-white/10 hover:bg-white/10" 
+                            : "bg-white/3 border-white/5"
+                        }`}
                       >
                         <div className={`w-2 h-2 rounded-full ${
                           phase.status === "completed" ? "bg-green-400" :
                           phase.status === "current" ? "bg-cyan-400 animate-pulse" : "bg-purple-400"
                         }`}></div>
-                        <span className="text-gray-200 font-medium">{feature}</span>
+                        <span className={`font-medium ${
+                          isAccessible ? "text-gray-200" : "text-gray-400"
+                        }`}>{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -259,11 +294,11 @@ export default function Road() {
             <div className="w-full h-3 bg-gray-800 rounded-full overflow-hidden shadow-inner">
               <div 
                 className="h-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 transition-all duration-1000 ease-out rounded-full"
-                style={{ width: `${((activePhase + 1) / phases.length) * 100}%` }}
+                style={{ width: `${((currentPhaseIndex + 1) / phases.length) * 100}%` }}
               ></div>
             </div>
             <span className="text-cyan-400 text-lg font-bold min-w-12">
-              {Math.round(((activePhase + 1) / phases.length) * 100)}%
+              {Math.round(((currentPhaseIndex + 1) / phases.length) * 100)}%
             </span>
           </div>
         </div>
