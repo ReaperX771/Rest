@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+
+body {
+  @apply bg-gradient-to-b from-black via-[#05081A] to-[#0A0033] text-white;
+  background-attachment: fixed;
+  background-size: cover;
+  scroll-behavior: smooth;
+}
