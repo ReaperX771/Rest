@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { FaTruckMonster } from "react-icons/fa";
+import { FaTruckMonster, FaCheckCircle, FaPlayCircle, FaClock } from "react-icons/fa";
 
 export default function Road() {
   const ref = useRef(null);
@@ -30,20 +30,55 @@ export default function Road() {
     {
       title: "Phase 1 — Cat Nap",
       text: "Token launch, early RESTers onboarding, and brand awakening.",
+      status: "completed", // ✅ Done
+      icon: FaCheckCircle
     },
     {
       title: "Phase 2 — Deep Sleep", 
       text: "NFT collection drop, exchange listings, and influencer push.",
+      status: "live", // 🟢 Currently happening
+      icon: FaPlayCircle
     },
     {
       title: "Phase 3 — Dreamland",
       text: "REST staking and RESTverse beta rollout for early users.",
+      status: "coming", // ⏳ Future
+      icon: FaClock
     },
     {
       title: "Phase 4 — Eternal Rest",
       text: "Global partnerships, cross-chain expansion, and RESTverse 2.0.",
+      status: "coming", // ⏳ Future
+      icon: FaClock
     },
   ];
+
+  const getStatusColor = (status) => {
+    switch(status) {
+      case 'completed': return 'bg-green-500 border-green-400';
+      case 'live': return 'bg-cyan-500 border-cyan-400 animate-pulse';
+      case 'coming': return 'bg-gray-600 border-gray-500';
+      default: return 'bg-gray-600 border-gray-500';
+    }
+  };
+
+  const getStatusIcon = (status) => {
+    switch(status) {
+      case 'completed': return <FaCheckCircle className="text-white text-xs" />;
+      case 'live': return <FaPlayCircle className="text-white text-xs" />;
+      case 'coming': return <FaClock className="text-white text-xs" />;
+      default: return <FaClock className="text-white text-xs" />;
+    }
+  };
+
+  const getStatusText = (status) => {
+    switch(status) {
+      case 'completed': return 'Completed';
+      case 'live': return 'Live Now';
+      case 'coming': return 'Coming Soon';
+      default: return 'Coming Soon';
+    }
+  };
 
   return (
     <section
@@ -70,18 +105,18 @@ export default function Road() {
           <FaTruckMonster className="text-cyan-400 text-4xl" />
         </div>
 
-        {/* Phase Dots */}
+        {/* Phase Dots with Status */}
         <div className="relative flex justify-between">
-          {phases.map((_, i) => (
+          {phases.map((phase, i) => (
             <div
               key={i}
-              className="w-4 h-4 rounded-full bg-cyan-500 border-2 border-white"
+              className={`w-4 h-4 rounded-full border-2 ${getStatusColor(phase.status)}`}
             />
           ))}
         </div>
       </div>
 
-      {/* Simple Phase Boxes */}
+      {/* Phase Boxes with Status */}
       <div className="max-w-4xl mx-auto">
         {phases.map((phase, i) => (
           <div
@@ -93,13 +128,28 @@ export default function Road() {
               transitionDelay: visible ? `${i * 100}ms` : "0ms"
             }}
           >
-            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-cyan-500 flex items-center justify-center text-white font-bold text-sm">
-              {i + 1}
+            <div className="flex-shrink-0 relative">
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm ${getStatusColor(phase.status)}`}>
+                {i + 1}
+              </div>
+              {/* Status Badge */}
+              <div className={`absolute -top-2 -right-2 w-5 h-5 rounded-full border-2 border-white flex items-center justify-center ${getStatusColor(phase.status)}`}>
+                {getStatusIcon(phase.status)}
+              </div>
             </div>
-            <div>
-              <h3 className="text-xl font-semibold text-cyan-300 mb-2">
-                {phase.title}
-              </h3>
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <h3 className="text-xl font-semibold text-cyan-300">
+                  {phase.title}
+                </h3>
+                <span className={`text-xs px-2 py-1 rounded-full ${
+                  phase.status === 'completed' ? 'bg-green-500/20 text-green-400' :
+                  phase.status === 'live' ? 'bg-cyan-500/20 text-cyan-400 animate-pulse' :
+                  'bg-gray-500/20 text-gray-400'
+                }`}>
+                  {getStatusText(phase.status)}
+                </span>
+              </div>
               <p className="text-gray-300">{phase.text}</p>
             </div>
           </div>
