@@ -35,6 +35,7 @@ export default function Hero() {
   return (
     <section 
       ref={ref}
+      id="home"
       className="min-h-screen flex items-center justify-center px-4 sm:px-6 text-white relative overflow-hidden"
     >
       <div className="relative z-10 text-center max-w-4xl mx-auto">
