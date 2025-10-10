@@ -71,7 +71,7 @@ export default function Hero() {
         </div>
         
         {/* Stats */}
-        <div className={`grid grid-cols-3 gap-8 max-w-2xl mx-auto transition-all duration-1000 delay-700 ${
+        <div className={`grid grid-cols-3 gap-8 max-w-2xl mx-auto transition-all py-10 duration-1000 delay-700 ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           <div className="text-center">
@@ -90,7 +90,7 @@ export default function Hero() {
       </div>
       
       {/* Scroll indicator */}
-      <div className={`absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce transition-all duration-1000 delay-1000 ${
+      <div className={`absolute bottom-27  left-1/2 transform -translate-x-1/2 animate-bounce transition-all duration-1000 delay-1000 ${
         visible ? 'opacity-100' : 'opacity-0'
       }`}>
         <div className="w-6 h-10 border-2 border-cyan-400 rounded-full flex justify-center">
