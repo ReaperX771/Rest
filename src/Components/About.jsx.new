@@ -127,7 +127,25 @@ export default function About() {
         </div>
 
         {/* Tokenomics Preview */}
-       
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-12 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+            Tokenomics Preview
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {Object.entries(tokenomics).map(([key, value], index) => (
+              <div
+                key={key}
+                className={`p-6 rounded-xl bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 
+                  transition-all duration-[800ms] ease-out transform hover:border-gray-600 hover:scale-105
+                  ${visible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
+                style={{ transitionDelay: `${(index + 6) * 200}ms` }}
+              >
+                <div className="text-2xl font-bold text-cyan-400 mb-2">{value}</div>
+                <div className="text-gray-400 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

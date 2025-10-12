@@ -39,7 +39,7 @@ export default function Header() {
               key={link.id}
               href={`#${link.id}`}
               offset="100"
-              className="flex items-center gap-2 text-gray-300 hover:text-cyan-400 transition-colors duration-300"
+              className="flex items-center gap-2 text-gray-300 hover:text-blue-300 transition-colors duration-300"
             >
               {link.icon}
               <span>{link.label}</span>
@@ -50,7 +50,7 @@ export default function Header() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setNavOpen(!navOpen)}
-          className="text-2xl lg:hidden text-cyan-400"
+          className="text-2xl lg:hidden text-blue-300"
         >
           {navOpen ? <FaTimes /> : <FaBars />}
         </button>
@@ -65,7 +65,7 @@ export default function Header() {
               href={`#${link.id}`}
               offset="100"
               onClick={() => setNavOpen(false)}
-              className="flex items-center gap-2 py-3 text-gray-300 hover:text-cyan-400 transition-colors duration-300"
+              className="flex items-center gap-2 py-3 text-gray-300 hover:text-blue-300 transition-colors duration-300"
             >
               {link.icon}
               <span>{link.label}</span>
