@@ -51,7 +51,7 @@ export default function About() {
           <img
             src={about}
             alt="Relaxing Illustration"
-            className="w-100 h-60 sm:w-100 drop-shadow-[0_0_20px_#38bdf8aa] transition-all duration-700 hover:scale-105"
+            className="w-100 sm:w-100 drop-shadow-[0_0_20px_#38bdf8aa] transition-all duration-700 hover:scale-105"
           />
         </div>
       </div>
