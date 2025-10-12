@@ -12,7 +12,7 @@ export default function Footer() {
           </h1> */}
            <img className="w-17" src={logo}/>
           <p className="text-sm mt-1 text-gray-400">
-            Sleep better knowing your meme token works for you.
+             A calm movement for a restless world.
           </p>
         </div>
 
