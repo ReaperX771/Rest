@@ -9,6 +9,9 @@ import {
   FaCoins,
   FaRoad,
   FaUsers,
+  FaPuzzlePiece,
+  FaGem,
+  FaVoteYea,
 } from "react-icons/fa";
 import logo from '../assets/images/logo.png'
 
@@ -19,6 +22,9 @@ export default function Header() {
     { id: "home", label: "Home", icon: <FaHome /> },
     { id: "about", label: "About", icon: <FaInfoCircle /> },
     { id: "tokenomics", label: "Tokenomics", icon: <FaCoins /> },
+    { id: "utility", label: "Utility", icon: <FaPuzzlePiece /> },
+    { id: "value", label: "Value", icon: <FaGem /> },
+    { id: "governance", label: "Governance", icon: <FaVoteYea /> },
     { id: "roadmap", label: "Roadmap", icon: <FaRoad /> },
     { id: "community", label: "Community", icon: <FaUsers /> },
   ];

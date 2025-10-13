@@ -1,6 +1,6 @@
 
 import './App.css'
-import { About, Community, Footer, Header, Hero, Road, Tok } from './Components'
+import { About, Community, Footer, Governance, Header, Hero, Road, Tok, Utility, Value } from './Components'
 
 function App() {
   
@@ -12,6 +12,9 @@ function App() {
       <About/>
       <Tok/>
       <Road/>
+      <Utility/>
+      <Value/>
+      <Governance/>
       <Community/>
       <Footer/>
     </>

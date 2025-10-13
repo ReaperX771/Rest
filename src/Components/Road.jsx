@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FaTruckMonster, FaCheckCircle, FaPlayCircle, FaClock } from "react-icons/fa";
 
-export default function Road() {
+export default function Roadmap() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
   const [truckPosition, setTruckPosition] = useState(0);
@@ -28,27 +28,58 @@ export default function Road() {
 
   const phases = [
     {
-      title: "Phase 1 — Cat Nap",
-      text: "Token launch, early RESTers onboarding, and brand awakening.",
-      status: "completed", // ✅ Done
-      icon: FaCheckCircle
-    },
-    {
-      title: "Phase 2 — Deep Sleep", 
-      text: "NFT collection drop, exchange listings, and influencer push.",
-      status: "live", // 🟢 Currently happening
-      icon: FaPlayCircle
-    },
-    {
-      title: "Phase 3 — Dreamland",
-      text: "REST staking and RESTverse beta rollout for early users.",
-      status: "coming", // ⏳ Future
+      title: "Phase 1 — Foundation and Fair Launch",
+      period: "Q4 2025",
+      items: [
+        "Launch of REST Token on Solana",
+        "Contract locked and liquidity sealed forever",
+        "Official Website Launch (Nov 7, 2025)",
+        "Fair Launch with no pre-sale or private investors",
+        "Community establishment and global awareness drive",
+        "Listing on DEX (Raydium / Jupiter)"
+      ],
+      status: "coming",
       icon: FaClock
     },
     {
-      title: "Phase 4 — Eternal Rest",
-      text: "Global partnerships, cross-chain expansion, and RESTverse 2.0.",
-      status: "coming", // ⏳ Future
+      title: "Phase 2 — Ecosystem Development", 
+      period: "Q1–Q2 2026",
+      items: [
+        "Integration with ConnectGlobal94 App",
+        "REST payment rails for Agriculture, Utility Bills, and Transportation",
+        "Development of REST Merchant API and Wallet System",
+        "Listing on Tier 2 CEX for wider access",
+        "Launch of Community Governance Portal",
+        "Audit Publication and Strategic Transparency Reports"
+      ],
+      status: "coming",
+      icon: FaClock
+    },
+    {
+      title: "Phase 3 — Expansion and Adoption",
+      period: "Q3–Q4 2026",
+      items: [
+        "Integration with Real Estate, Education, and Flight Payment Systems",
+        "Strategic partnerships with Local and International PSPs",
+        "Onboarding of 100+ Merchants across Africa",
+        "REST Rewards and Loyalty System for frequent users",
+        "REST Staking and Yield Mechanisms for community participation"
+      ],
+      status: "coming",
+      icon: FaClock
+    },
+    {
+      title: "Phase 4 — Maturity and Global Integration",
+      period: "2027 and Beyond",
+      items: [
+        "REST DAO Governance full activation",
+        "Cross-border payment gateways and multi-currency support",
+        "Integration into e-governance and educational funding models",
+        "REST backed entrepreneurial connect platform launch",
+        "Continuous app upgrades and service scalability",
+        "REST becomes a benchmark token for decentralized payments"
+      ],
+      status: "coming",
       icon: FaClock
     },
   ];
@@ -84,11 +115,11 @@ export default function Road() {
     <section
       id="roadmap"
       ref={ref}
-      className="relative py-16 px-4 text-white"
+      className="relative py-16 px-4 text-white overflow-hidden"
     >
       <h2 className="text-4xl sm:text-5xl font-extrabold text-center mb-16 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">
-          Roadmap
-        </h2>
+        🚙 Roadmap
+      </h2>
 
       {/* Simple Road Line */}
       <div className="relative max-w-4xl mx-auto mb-12">
@@ -117,11 +148,11 @@ export default function Road() {
       </div>
 
       {/* Phase Boxes with Status */}
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {phases.map((phase, i) => (
           <div
             key={i}
-            className={`flex items-start gap-6 mb-8 p-6 rounded-xl bg-white/5 border border-cyan-500/30 transition-all duration-500 ${
+            className={`flex items-start gap-6 mb-8 p-6 rounded-xl border border-cyan-500/30 backdrop-blur-sm transition-all duration-500 ${
               visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
             }`}
             style={{
@@ -129,20 +160,20 @@ export default function Road() {
             }}
           >
             <div className="flex-shrink-0 relative">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm ${getStatusColor(phase.status)}`}>
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg ${getStatusColor(phase.status)}`}>
                 {i + 1}
               </div>
               {/* Status Badge */}
-              <div className={`absolute -top-2 -right-2 w-5 h-5 rounded-full border-2 border-white flex items-center justify-center ${getStatusColor(phase.status)}`}>
+              <div className={`absolute -top-2 -right-2 w-6 h-6 rounded-full border-2 border-white flex items-center justify-center ${getStatusColor(phase.status)}`}>
                 {getStatusIcon(phase.status)}
               </div>
             </div>
             <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
-                <h3 className="text-xl font-semibold text-cyan-300">
+              <div className="flex items-center gap-3 mb-3">
+                <h3 className="text-2xl font-bold text-cyan-300">
                   {phase.title}
                 </h3>
-                <span className={`text-xs px-2 py-1 rounded-full ${
+                <span className={`text-xs px-3 py-1 rounded-full ${
                   phase.status === 'completed' ? 'bg-green-500/20 text-green-400' :
                   phase.status === 'live' ? 'bg-cyan-500/20 text-cyan-400 animate-pulse' :
                   'bg-gray-500/20 text-gray-400'
@@ -150,7 +181,17 @@ export default function Road() {
                   {getStatusText(phase.status)}
                 </span>
               </div>
-              <p className="text-gray-300">{phase.text}</p>
+              <div className="text-lg font-semibold text-blue-400 mb-4">
+                {phase.period}
+              </div>
+              <ul className="grid md:grid-cols-2 gap-2">
+                {phase.items.map((item, itemIndex) => (
+                  <li key={itemIndex} className="flex items-start space-x-2 text-cyan-200">
+                    <span className="text-cyan-400 mt-1">🔸</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         ))}

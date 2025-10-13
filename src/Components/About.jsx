@@ -1,58 +1,118 @@
-import { useEffect, useRef, useState } from "react";
-import about from '../assets/images/about.jpg'
+import { useState, useEffect, useRef } from "react";
+import { FaShieldAlt, FaEye, FaUnlock, FaUsers } from "react-icons/fa";
 
 export default function About() {
-  const ref = useRef(null);
   const [visible, setVisible] = useState(false);
-
+  const ref = useRef(null);
+  
   useEffect(() => {
     const el = ref.current;
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((entry) => setVisible(entry.isIntersecting)),
-      { threshold: 0.2 }
+      { threshold: 0.3 }
     );
     if (el) observer.observe(el);
     return () => el && observer.unobserve(el);
   }, []);
 
+  const principles = [
+    {
+      icon: FaShieldAlt,
+      title: "Integrity",
+      description: "REST is built on transparent values that prioritize honesty over hype.",
+      color: "text-cyan-400",
+      borderColor: "border-cyan-400/30"
+    },
+    {
+      icon: FaEye,
+      title: "Transparency",
+      description: "From contract to liquidity, every component is open and verifiable.",
+      color: "text-blue-400",
+      borderColor: "border-blue-400/30"
+    },
+    {
+      icon: FaUnlock,
+      title: "Freedom",
+      description: "Empowering users, communities, and merchants to transact without barriers or middlemen.",
+      color: "text-purple-400",
+      borderColor: "border-purple-400/30"
+    },
+    {
+      icon: FaUsers,
+      title: "Community Governance",
+      description: "The people decide the pace, growth, and direction of REST.",
+      color: "text-pink-400",
+      borderColor: "border-pink-400/30"
+    }
+  ];
+
   return (
-    <section
-      id="about"
+    <section 
       ref={ref}
-      className="relative py-24 px-6 text-white overflow-hidden"
+      id="about"
+      className="py-20 px-4 sm:px-6 text-white relative overflow-hidden"
     >
-      <div
-        className={`max-w-6xl mx-auto flex flex-col-reverse sm:flex-row items-center gap-12 transition-all duration-[1200ms] ease-out ${
-          visible ? "opacity-100 translate-x-0" : "-translate-x-12 opacity-0"
-        }`}
-      >
-        {/* Text */}
-        <div className="sm:w-1/2 space-y-6">
-          <h2 className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">
-            About REST
-          </h2>
-          <p className="text-gray-300 leading-relaxed">
-            REST isn’t just another meme token — it’s a movement of calm in the
-            chaos. In a world where everything’s racing, REST reminds the
-            blockchain community to breathe, vibe, and earn while doing it.
-          </p>
-          <p className="text-gray-400">
-            Holders are part of the RESTverse — a digital sanctuary powered by
-            humor, creativity, and shared chill energy. Every holder plays a
-            role in spreading peace across the crypto ecosystem.
-          </p>
-          <p className="text-cyan-400 font-semibold">
-            Take a break. Stack some REST.
-          </p>
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-4xl sm:text-5xl font-extrabold text-center mb-16 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">
+          ⚙️ Core Principles
+        </h2>
+
+        {/* Overview Section */}
+        <div className={`mb-16 text-center transition-all duration-1000 ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <div className="border border-cyan-500/30 rounded-2xl p-8 backdrop-blur-sm max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold text-cyan-400 mb-4">🌍 Overview</h3>
+            <p className="text-lg text-cyan-200 leading-relaxed">
+              REST is a utility-driven token built on the Solana blockchain, designed to power everyday payments through a trusted community-driven ecosystem CTDG. 
+              It serves as the financial engine within CONNECT THE DOT GLOBAL - a visionary platform redefining blockchain utility in Africa and beyond, 
+              connecting payments across Agriculture, Real Estate, Automobile, Utilities, Education, Governance, and Entrepreneurship.
+            </p>
+          </div>
         </div>
 
-        {/* Image / Visual */}
-        <div className="sm:w-1/2 flex justify-center">
-          <img
-            src={about}
-            alt="Relaxing Illustration"
-            className="w-100 sm:w-100 drop-shadow-[0_0_20px_#38bdf8aa] transition-all duration-700 hover:scale-105"
-          />
+        {/* Principles Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {principles.map((principle, i) => {
+            const Icon = principle.icon;
+            return (
+              <div
+                key={principle.title}
+                className={`p-6 rounded-xl border ${principle.borderColor} backdrop-blur-sm transition-all duration-700 ease-out ${
+                  visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                } hover:scale-105 transform-gpu cursor-pointer`}
+                style={{
+                  transitionDelay: visible ? `${i * 150}ms` : "0ms"
+                }}
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className={`p-4 rounded-2xl bg-cyan-500/20 mb-4 ${principle.color}`}>
+                    <Icon className="text-2xl" />
+                  </div>
+                  <h3 className={`text-xl font-bold mb-3 ${principle.color}`}>
+                    {principle.title}
+                  </h3>
+                  <p className="text-cyan-300 text-sm leading-relaxed">
+                    {principle.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Final Notes */}
+        <div className={`mt-16 text-center transition-all duration-1000 delay-500 ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <div className="border border-purple-500/30 rounded-2xl p-8 backdrop-blur-sm max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold text-purple-400 mb-4">📅 Final Notes</h3>
+            <p className="text-lg text-purple-200 leading-relaxed italic">
+              "REST is not a sprint: It is a marathon of vision, purpose, and innovation. 
+              Every locked wallet, transparent process, and community vote builds the foundation for a decentralized economy 
+              where trust and freedom meet real-world functionality."
+            </p>
+          </div>
         </div>
       </div>
     </section>

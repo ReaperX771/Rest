@@ -50,12 +50,27 @@ export default function Hero() {
             </div>
           </div>
         </div>
-        
-        {/* Subtitle */}
-        <p className={`text-xl sm:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed transition-all duration-1000 delay-300 ${
+
+        {/* Main Title */}
+        <h1 className={`text-3xl sm:text-4xl md:text-5xl font-black mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent leading-tight transition-all duration-1000 delay-200 ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          The meme coin on Solana that's putting crypto to sleep. Seriously, get some REST.
+          REST TOKEN
+        </h1>
+        
+        {/* Subtitle */}
+        <p className={`text-xl sm:text-2xl text-cyan-300 mb-4 max-w-2xl mx-auto leading-relaxed transition-all duration-1000 delay-300 ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          Powering Everyday Payments with Trust and Freedom
+        </p>
+
+        {/* Overview */}
+        <p className={`text-lg text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed transition-all duration-1000 delay-400 ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          A utility-driven token built on Solana, designed to power everyday payments through a trusted community-driven ecosystem. 
+          Redefining blockchain utility in Africa and beyond.
         </p>
         
         {/* CTA Buttons */}
@@ -63,7 +78,7 @@ export default function Hero() {
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl font-bold text-lg hover:scale-105 transform transition-all duration-300 shadow-lg shadow-cyan-500/25">
-            Buy $REST
+            Get Started
           </button>
           <button className="px-8 py-4 border-2 border-cyan-400 text-cyan-300 rounded-xl font-bold text-lg hover:bg-cyan-400/10 transition-all duration-300">
             Learn More
@@ -75,22 +90,22 @@ export default function Hero() {
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
           <div className="text-center">
-            <div className="text-2xl font-bold text-cyan-400">1B</div>
-            <div className="text-gray-400 text-sm">Total Supply</div>
+            <div className="text-2xl font-bold text-cyan-400">500M</div>
+            <div className="text-cyan-300 text-sm">Total Supply</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-blue-400">0%</div>
-            <div className="text-gray-400 text-sm">Tax</div>
+            <div className="text-blue-300 text-sm">Tax</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-purple-400">SOL</div>
-            <div className="text-gray-400 text-sm">Network</div>
+            <div className="text-purple-300 text-sm">Network</div>
           </div>
         </div>
       </div>
       
       {/* Scroll indicator */}
-      <div className={`absolute bottom-27  left-1/2 transform -translate-x-1/2 animate-bounce transition-all duration-1000 delay-1000 ${
+      <div className={`absolute bottom-27 left-1/2 transform -translate-x-1/2 animate-bounce transition-all duration-1000 delay-1000 ${
         visible ? 'opacity-100' : 'opacity-0'
       }`}>
         <div className="w-6 h-10 border-2 border-cyan-400 rounded-full flex justify-center">
