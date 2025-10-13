@@ -3,6 +3,7 @@ import logo from '../assets/images/logo.png';
 
 export default function Hero() {
   const [visible, setVisible] = useState(false);
+  const [copied, setCopied] = useState(false);
   const ref = useRef(null);
   
   useEffect(() => {
@@ -14,6 +15,19 @@ export default function Hero() {
     if (el) observer.observe(el);
     return () => el && observer.unobserve(el);
   }, []);
+
+  const contractAddress = "ERpXkEafaKuKEARBCFsVnLZA1GARWUjBBbQCukXpbonk";
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(contractAddress)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+  };
 
   return (
     <section 
@@ -74,15 +88,48 @@ export default function Hero() {
         </p>
         
         {/* CTA Buttons */}
-        <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 transition-all duration-1000 delay-500 ${
+        <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 transition-all duration-1000 delay-500 ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
+
+           <a 
+            href="https://x.com/RealRest01?t=ZoUPnikhC2Tnzpts8mh0rA&s=09"
+            target="_blank"
+            rel="noopener noreferrer"
+          > 
           <button className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl font-bold text-lg hover:scale-105 transform transition-all duration-300 shadow-lg shadow-cyan-500/25">
             Get Started
           </button>
-          <button className="px-8 py-4 border-2 border-cyan-400 text-cyan-300 rounded-xl font-bold text-lg hover:bg-cyan-400/10 transition-all duration-300">
-            Learn More
-          </button>
+          </a>
+          <a 
+            href="https://raydium.io/swap/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button className="px-8 py-4 border-2 border-cyan-400 text-cyan-300 rounded-xl font-bold text-lg hover:bg-cyan-400/10 transition-all duration-300">
+              Buy Rest
+            </button>
+          </a>
+        </div>
+
+        {/* Contract Address */}
+        <div className={`mb-8 transition-all duration-1000 delay-600 ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <div className="max-w-md mx-auto">
+            <p className="text-cyan-300 text-sm mb-2">Contract Address</p>
+            <div className="flex items-center justify-center bg-cyan-900/20 border border-cyan-500/30 rounded-xl p-3">
+              <code className="text-cyan-200 text-sm font-mono truncate flex-1">
+                {contractAddress}
+              </code>
+              <button
+                onClick={copyToClipboard}
+                className="ml-3 px-3 py-1 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg text-sm font-medium transition-all duration-300"
+              >
+                {copied ? 'Copied!' : 'Copy'}
+              </button>
+            </div>
+          </div>
         </div>
         
         {/* Stats */}

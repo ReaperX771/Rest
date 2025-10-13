@@ -8,5 +8,7 @@ import Footer from "./Footer";
 import Utility from "./Utility";
 import Value from "./Value";
 import Governance from "./Governance";
+import Book from "./Book";
 
-export { Header , Hero , About , Tok , Road , Community , Footer  , Utility , Value , Governance };
+export { Header , Hero , About , Tok , Road , Community ,
+     Footer  , Utility , Value , Governance , Book };

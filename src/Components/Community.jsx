@@ -17,9 +17,24 @@ export default function Community() {
   }, []);
 
   const socials = [
-    { icon: <FaDiscord />, label: "Discord", color: "text-indigo-400" },
-    { icon: <FaTelegramPlane />, label: "Telegram", color: "text-cyan-400" },
-    { icon: <FaTwitter />, label: "Twitter", color: "text-blue-400" },
+    { 
+      icon: <FaDiscord />, 
+      label: "Discord", 
+      color: "text-indigo-400",
+      link: "https://discord.gg/HBdpy6YyG" // Replace with actual Discord link
+    },
+    { 
+      icon: <FaTelegramPlane />, 
+      label: "Telegram", 
+      color: "text-cyan-400",
+      link: "https://t.me/realtoken" // Replace with actual Telegram link
+    },
+    { 
+      icon: <FaTwitter />, 
+      label: "Twitter", 
+      color: "text-blue-400",
+      link: "https://x.com/RealRest01?t=ZoUPnikhC2Tnzpts8mh0rA&s=09" // Replace with actual Twitter link
+    },
   ];
 
   return (
@@ -45,16 +60,23 @@ export default function Community() {
           {socials.map((s, i) => (
             <div
               key={i}
-              className={`transition-all duration-[1000ms] ease-out delay-${i * 200} ${
+              className={`transition-all duration-[1000ms] ease-out ${
                 visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
               }`}
+              style={{
+                transitionDelay: visible ? `${i * 200}ms` : "0ms"
+              }}
             >
               <a
-                href="#"
-                className={`${s.color} hover:text-white hover:scale-110 transition-all duration-500`}
+                href={s.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${s.color} hover:text-white hover:scale-110 transition-all duration-500 block p-3`}
+                title={`Join our ${s.label}`}
               >
                 {s.icon}
               </a>
+              <p className="text-cyan-300 text-sm mt-2">{s.label}</p>
             </div>
           ))}
         </div>

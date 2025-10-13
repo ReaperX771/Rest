@@ -44,8 +44,8 @@ export default function Roadmap() {
         "Community establishment",
         "Listing on DEX (Raydium / Jupiter)"
       ],
-      status: "coming",
-      icon: FaClock
+      status: "completed",
+      icon: FaCheckCircle
     },
     {
       title: "Phase 2 — Ecosystem",
@@ -59,8 +59,8 @@ export default function Roadmap() {
         "Community Governance Portal",
         "Audit Publication"
       ],
-      status: "coming",
-      icon: FaClock
+      status: "live",
+      icon: FaPlayCircle
     },
     {
       title: "Phase 3 — Expansion",
@@ -126,79 +126,104 @@ export default function Roadmap() {
       ref={ref}
       className="relative py-12 px-4 sm:px-6 text-white"
     >
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-12 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">
+      <h2 className={`text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-12 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent transition-all duration-700 ${
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
         🚙 Roadmap
       </h2>
 
-      {/* Mobile: Vertical Timeline */}
+      {/* Mobile: Horizontal Timeline with Truck */}
       <div className="block md:hidden">
-        <div className="relative max-w-2xl mx-auto">
-          {/* Vertical Line */}
-          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-cyan-500/30 transform -translate-x-1/2"></div>
+        {/* Horizontal Road Line */}
+        <div className={`relative max-w-4xl mx-auto mb-8 transition-all duration-1000 ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-700 transform -translate-y-1/2"></div>
           
+          {/* Moving Truck */}
+          <div 
+            className="absolute top-1/2 transform -translate-y-1/2 z-10"
+            style={{
+              left: `${truckPosition}%`,
+              transition: 'left 0.1s linear'
+            }}
+          >
+            <FaTruckMonster className="text-cyan-400 text-3xl" />
+          </div>
+
+          {/* Phase Dots */}
+          <div className="relative flex justify-between">
+            {phases.map((phase, i) => (
+              <div
+                key={i}
+                className={`w-4 h-4 rounded-full border-2 ${getStatusColor(phase.status)} transition-all duration-1000 ${
+                  visible ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+                }`}
+                style={{
+                  transitionDelay: visible ? `${i * 200}ms` : '0ms'
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Phase Cards */}
+        <div className="max-w-4xl mx-auto">
           {phases.map((phase, i) => (
             <div
               key={i}
-              className={`relative mb-6 transition-all duration-500 ${
-                visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+              className={`mb-6 p-4 rounded-xl border border-cyan-500/30 backdrop-blur-sm transition-all duration-700 ${
+                expandedPhase === i ? 'bg-cyan-500/5' : ''
+              } ${
+                visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
               }`}
               style={{
-                transitionDelay: visible ? `${i * 150}ms` : "0ms"
+                transitionDelay: visible ? `${i * 300}ms` : "0ms"
               }}
             >
-              {/* Timeline Dot */}
-              <div className={`absolute left-4 w-4 h-4 rounded-full border-2 transform -translate-x-1/2 z-10 ${getStatusColor(phase.status)}`}></div>
-              
-              {/* Phase Card */}
+              {/* Header - Always Visible */}
               <div 
-                className={`ml-12 p-4 rounded-xl border border-cyan-500/30 backdrop-blur-sm ${
-                  expandedPhase === i ? 'bg-cyan-500/5' : ''
-                }`}
+                className="flex items-center justify-between cursor-pointer"
+                onClick={() => togglePhase(i)}
               >
-                {/* Header - Always Visible */}
-                <div 
-                  className="flex items-center justify-between cursor-pointer"
-                  onClick={() => togglePhase(i)}
-                >
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-lg font-bold text-cyan-300">
-                        Phase {i + 1}
-                      </h3>
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        phase.status === 'completed' ? 'bg-green-500/20 text-green-400' :
-                        phase.status === 'live' ? 'bg-cyan-500/20 text-cyan-400 animate-pulse' :
-                        'bg-gray-500/20 text-gray-400'
-                      }`}>
-                        {getStatusText(phase.status)}
-                      </span>
-                    </div>
-                    <div className="text-sm font-semibold text-blue-400">
-                      {phase.period}
-                    </div>
-                    <div className="text-sm text-cyan-200 mt-1">
-                      {phase.shortTitle}
-                    </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-lg font-bold text-cyan-300">
+                      Phase {i + 1}
+                    </h3>
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      phase.status === 'completed' ? 'bg-green-500/20 text-green-400' :
+                      phase.status === 'live' ? 'bg-cyan-500/20 text-cyan-400 animate-pulse' :
+                      'bg-gray-500/20 text-gray-400'
+                    }`}>
+                      {getStatusText(phase.status)}
+                    </span>
                   </div>
-                  <div className="text-cyan-400">
-                    {expandedPhase === i ? <FaChevronUp /> : <FaChevronDown />}
+                  <div className="text-sm font-semibold text-blue-400">
+                    {phase.period}
+                  </div>
+                  <div className="text-sm text-cyan-200 mt-1">
+                    {phase.shortTitle}
                   </div>
                 </div>
-
-                {/* Expandable Content */}
-                {expandedPhase === i && (
-                  <div className="mt-4 pt-4 border-t border-cyan-500/20">
-                    <ul className="space-y-2">
-                      {phase.items.map((item, itemIndex) => (
-                        <li key={itemIndex} className="flex items-start space-x-2 text-sm text-cyan-200">
-                          <span className="text-cyan-400 mt-1 flex-shrink-0">•</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+                <div className="text-cyan-400">
+                  {expandedPhase === i ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
               </div>
+
+              {/* Expandable Content */}
+              {expandedPhase === i && (
+                <div className="mt-4 pt-4 border-t border-cyan-500/20">
+                  <ul className="space-y-2">
+                    {phase.items.map((item, itemIndex) => (
+                      <li key={itemIndex} className="flex items-start space-x-2 text-sm text-cyan-200">
+                        <span className="text-cyan-400 mt-1 flex-shrink-0">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -207,7 +232,9 @@ export default function Roadmap() {
       {/* Desktop: Horizontal Timeline */}
       <div className="hidden md:block">
         {/* Simple Road Line */}
-        <div className="relative max-w-4xl mx-auto mb-12">
+        <div className={`relative max-w-4xl mx-auto mb-12 transition-all duration-1000 ${
+          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
           <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-700 transform -translate-y-1/2"></div>
           
           {/* Moving Truck */}
@@ -226,7 +253,12 @@ export default function Roadmap() {
             {phases.map((phase, i) => (
               <div
                 key={i}
-                className={`w-4 h-4 rounded-full border-2 ${getStatusColor(phase.status)}`}
+                className={`w-4 h-4 rounded-full border-2 ${getStatusColor(phase.status)} transition-all duration-1000 ${
+                  visible ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+                }`}
+                style={{
+                  transitionDelay: visible ? `${i * 200}ms` : '0ms'
+                }}
               />
             ))}
           </div>
@@ -237,11 +269,11 @@ export default function Roadmap() {
           {phases.map((phase, i) => (
             <div
               key={i}
-              className={`flex items-start gap-6 mb-8 p-6 rounded-xl border border-cyan-500/30 backdrop-blur-sm transition-all duration-500 ${
-                visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+              className={`flex items-start gap-6 mb-8 p-6 rounded-xl border border-cyan-500/30 backdrop-blur-sm transition-all duration-700 ${
+                visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
               }`}
               style={{
-                transitionDelay: visible ? `${i * 100}ms` : "0ms"
+                transitionDelay: visible ? `${i * 300}ms` : "0ms"
               }}
             >
               <div className="flex-shrink-0 relative">
@@ -283,13 +315,15 @@ export default function Roadmap() {
       </div>
 
       {/* Mobile CTA */}
-      <div className="block md:hidden text-center mt-8">
+      <div className={`block md:hidden text-center mt-8 transition-all duration-1000 ${
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+      style={{
+        transitionDelay: visible ? '1200ms' : '0ms'
+      }}>
         <p className="text-cyan-300 text-sm mb-4">
           Tap on each phase to see details
         </p>
-        <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl font-bold text-white text-sm">
-          Learn More About REST
-        </button>
       </div>
     </section>
   );

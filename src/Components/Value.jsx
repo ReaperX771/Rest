@@ -5,6 +5,7 @@ export default function Value() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
   const [activeValue, setActiveValue] = useState(null);
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -61,6 +62,11 @@ export default function Value() {
 
   const toggleValue = (index) => {
     setActiveValue(activeValue === index ? null : index);
+  };
+
+  const handleDocumentationClick = () => {
+    setShowComingSoon(true);
+    setTimeout(() => setShowComingSoon(false), 3000); // Hide after 3 seconds
   };
 
   return (
@@ -230,14 +236,32 @@ export default function Value() {
             Ready to experience the future of payments?
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl font-bold text-white text-sm hover:scale-105 transition-transform">
-              Get Started with REST
-            </button>
-            <button className="px-6 py-3 border border-cyan-400 text-cyan-300 rounded-xl font-bold text-sm hover:bg-cyan-400/10 transition-all">
+            <a 
+              href="https://raydium.io/swap/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl font-bold text-white text-sm hover:scale-105 transition-transform">
+                Get Started with REST
+              </button>
+            </a>
+            <button 
+              onClick={handleDocumentationClick}
+              className="px-6 py-3 border border-cyan-400 text-cyan-300 rounded-xl font-bold text-sm hover:bg-cyan-400/10 transition-all"
+            >
               Read Documentation
             </button>
           </div>
         </div>
+
+        {/* Coming Soon Alert */}
+        {showComingSoon && (
+          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+            <div className="bg-cyan-500 text-white px-6 py-3 rounded-xl shadow-2xl border border-cyan-400 animate-bounce">
+              <p className="font-semibold">📚 Documentation - Coming Soon!</p>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
