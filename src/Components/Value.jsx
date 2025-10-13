@@ -195,7 +195,7 @@ export default function Value() {
 
         {/* Mobile Instructions */}
         <div className="block md:hidden text-center mt-8">
-          <p className="text-cyan-300 text-sm mb-4">
+          <p className="text-cyan-300 text-lg mb-4">
             Tap on each value to learn more
           </p>
         </div>

@@ -1,20 +1,6 @@
-import { useState, useEffect, useRef } from "react";
 import { FaShieldAlt, FaEye, FaUnlock, FaUsers } from "react-icons/fa";
 
 export default function About() {
-  const [visible, setVisible] = useState(false);
-  const ref = useRef(null);
-  
-  useEffect(() => {
-    const el = ref.current;
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => setVisible(entry.isIntersecting)),
-      { threshold: 0.3 }
-    );
-    if (el) observer.observe(el);
-    return () => el && observer.unobserve(el);
-  }, []);
-
   const principles = [
     {
       icon: FaShieldAlt,
@@ -47,20 +33,14 @@ export default function About() {
   ];
 
   return (
-    <section 
-      ref={ref}
-      id="about"
-      className="py-20 px-4 sm:px-6 text-white relative overflow-hidden"
-    >
+    <section id="about" className="py-20 px-4 sm:px-6 text-white">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl sm:text-5xl font-extrabold text-center mb-16 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">
           ⚙️ Core Principles
         </h2>
 
         {/* Overview Section */}
-        <div className={`mb-16 text-center transition-all duration-1000 ${
-          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
+        <div className="mb-16 text-center">
           <div className="border border-cyan-500/30 rounded-2xl p-8 backdrop-blur-sm max-w-4xl mx-auto">
             <h3 className="text-2xl font-bold text-cyan-400 mb-4">🌍 Overview</h3>
             <p className="text-lg text-cyan-200 leading-relaxed">
@@ -78,12 +58,7 @@ export default function About() {
             return (
               <div
                 key={principle.title}
-                className={`p-6 rounded-xl border ${principle.borderColor} backdrop-blur-sm transition-all duration-700 ease-out ${
-                  visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                } hover:scale-105 transform-gpu cursor-pointer`}
-                style={{
-                  transitionDelay: visible ? `${i * 150}ms` : "0ms"
-                }}
+                className={`p-6 rounded-xl border ${principle.borderColor} backdrop-blur-sm`}
               >
                 <div className="flex flex-col items-center text-center">
                   <div className={`p-4 rounded-2xl bg-cyan-500/20 mb-4 ${principle.color}`}>
@@ -102,9 +77,7 @@ export default function About() {
         </div>
 
         {/* Final Notes */}
-        <div className={`mt-16 text-center transition-all duration-1000 delay-500 ${
-          visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
+        <div className="mt-16 text-center">
           <div className="border border-purple-500/30 rounded-2xl p-8 backdrop-blur-sm max-w-4xl mx-auto">
             <h3 className="text-2xl font-bold text-purple-400 mb-4">📅 Final Notes</h3>
             <p className="text-lg text-purple-200 leading-relaxed italic">

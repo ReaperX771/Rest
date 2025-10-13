@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { FaTruckMonster, FaCheckCircle, FaPlayCircle, FaClock } from "react-icons/fa";
+import { FaTruckMonster, FaCheckCircle, FaPlayCircle, FaClock, FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 export default function Roadmap() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
   const [truckPosition, setTruckPosition] = useState(0);
+  const [expandedPhase, setExpandedPhase] = useState(null);
 
   useEffect(() => {
     const el = ref.current;
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((entry) => setVisible(entry.isIntersecting)),
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
     if (el) observer.observe(el);
     return () => el && observer.unobserve(el);
@@ -26,58 +27,66 @@ export default function Roadmap() {
     return () => clearInterval(interval);
   }, [visible]);
 
+  const togglePhase = (index) => {
+    setExpandedPhase(expandedPhase === index ? null : index);
+  };
+
   const phases = [
     {
-      title: "Phase 1 — Foundation and Fair Launch",
+      title: "Phase 1 — Foundation",
+      shortTitle: "Foundation",
       period: "Q4 2025",
       items: [
         "Launch of REST Token on Solana",
         "Contract locked and liquidity sealed forever",
         "Official Website Launch (Nov 7, 2025)",
-        "Fair Launch with no pre-sale or private investors",
-        "Community establishment and global awareness drive",
+        "Fair Launch with no pre-sale",
+        "Community establishment",
         "Listing on DEX (Raydium / Jupiter)"
       ],
       status: "coming",
       icon: FaClock
     },
     {
-      title: "Phase 2 — Ecosystem Development", 
+      title: "Phase 2 — Ecosystem",
+      shortTitle: "Ecosystem",
       period: "Q1–Q2 2026",
       items: [
         "Integration with ConnectGlobal94 App",
-        "REST payment rails for Agriculture, Utility Bills, and Transportation",
-        "Development of REST Merchant API and Wallet System",
-        "Listing on Tier 2 CEX for wider access",
-        "Launch of Community Governance Portal",
-        "Audit Publication and Strategic Transparency Reports"
+        "REST payment rails for key sectors",
+        "REST Merchant API and Wallet System",
+        "Listing on Tier 2 CEX",
+        "Community Governance Portal",
+        "Audit Publication"
       ],
       status: "coming",
       icon: FaClock
     },
     {
-      title: "Phase 3 — Expansion and Adoption",
+      title: "Phase 3 — Expansion",
+      shortTitle: "Expansion",
       period: "Q3–Q4 2026",
       items: [
-        "Integration with Real Estate, Education, and Flight Payment Systems",
-        "Strategic partnerships with Local and International PSPs",
-        "Onboarding of 100+ Merchants across Africa",
-        "REST Rewards and Loyalty System for frequent users",
-        "REST Staking and Yield Mechanisms for community participation"
+        "Real Estate & Education integration",
+        "Flight Payment Systems",
+        "100+ Merchants across Africa",
+        "REST Rewards and Loyalty System",
+        "REST Staking and Yield Mechanisms"
       ],
       status: "coming",
       icon: FaClock
     },
     {
-      title: "Phase 4 — Maturity and Global Integration",
-      period: "2027 and Beyond",
+      title: "Phase 4 — Global Integration",
+      shortTitle: "Global",
+      period: "2027+",
       items: [
-        "REST DAO Governance full activation",
-        "Cross-border payment gateways and multi-currency support",
-        "Integration into e-governance and educational funding models",
-        "REST backed entrepreneurial connect platform launch",
-        "Continuous app upgrades and service scalability",
-        "REST becomes a benchmark token for decentralized payments"
+        "REST DAO Governance activation",
+        "Cross-border payment gateways",
+        "E-governance integration",
+        "Entrepreneurial platform launch",
+        "Continuous app upgrades",
+        "Industry benchmark establishment"
       ],
       status: "coming",
       icon: FaClock
@@ -115,86 +124,172 @@ export default function Roadmap() {
     <section
       id="roadmap"
       ref={ref}
-      className="relative py-16 px-4 text-white overflow-hidden"
+      className="relative py-12 px-4 sm:px-6 text-white"
     >
-      <h2 className="text-4xl sm:text-5xl font-extrabold text-center mb-16 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-12 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">
         🚙 Roadmap
       </h2>
 
-      {/* Simple Road Line */}
-      <div className="relative max-w-4xl mx-auto mb-12">
-        <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-700 transform -translate-y-1/2"></div>
-        
-        {/* Moving Truck */}
-        <div 
-          className="absolute top-1/2 transform -translate-y-1/2 z-10"
-          style={{
-            left: `${truckPosition}%`,
-            transition: 'left 0.1s linear'
-          }}
-        >
-          <FaTruckMonster className="text-cyan-400 text-4xl" />
-        </div>
-
-        {/* Phase Dots with Status */}
-        <div className="relative flex justify-between">
+      {/* Mobile: Vertical Timeline */}
+      <div className="block md:hidden">
+        <div className="relative max-w-2xl mx-auto">
+          {/* Vertical Line */}
+          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-cyan-500/30 transform -translate-x-1/2"></div>
+          
           {phases.map((phase, i) => (
             <div
               key={i}
-              className={`w-4 h-4 rounded-full border-2 ${getStatusColor(phase.status)}`}
-            />
+              className={`relative mb-6 transition-all duration-500 ${
+                visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+              }`}
+              style={{
+                transitionDelay: visible ? `${i * 150}ms` : "0ms"
+              }}
+            >
+              {/* Timeline Dot */}
+              <div className={`absolute left-4 w-4 h-4 rounded-full border-2 transform -translate-x-1/2 z-10 ${getStatusColor(phase.status)}`}></div>
+              
+              {/* Phase Card */}
+              <div 
+                className={`ml-12 p-4 rounded-xl border border-cyan-500/30 backdrop-blur-sm ${
+                  expandedPhase === i ? 'bg-cyan-500/5' : ''
+                }`}
+              >
+                {/* Header - Always Visible */}
+                <div 
+                  className="flex items-center justify-between cursor-pointer"
+                  onClick={() => togglePhase(i)}
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h3 className="text-lg font-bold text-cyan-300">
+                        Phase {i + 1}
+                      </h3>
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        phase.status === 'completed' ? 'bg-green-500/20 text-green-400' :
+                        phase.status === 'live' ? 'bg-cyan-500/20 text-cyan-400 animate-pulse' :
+                        'bg-gray-500/20 text-gray-400'
+                      }`}>
+                        {getStatusText(phase.status)}
+                      </span>
+                    </div>
+                    <div className="text-sm font-semibold text-blue-400">
+                      {phase.period}
+                    </div>
+                    <div className="text-sm text-cyan-200 mt-1">
+                      {phase.shortTitle}
+                    </div>
+                  </div>
+                  <div className="text-cyan-400">
+                    {expandedPhase === i ? <FaChevronUp /> : <FaChevronDown />}
+                  </div>
+                </div>
+
+                {/* Expandable Content */}
+                {expandedPhase === i && (
+                  <div className="mt-4 pt-4 border-t border-cyan-500/20">
+                    <ul className="space-y-2">
+                      {phase.items.map((item, itemIndex) => (
+                        <li key={itemIndex} className="flex items-start space-x-2 text-sm text-cyan-200">
+                          <span className="text-cyan-400 mt-1 flex-shrink-0">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Phase Boxes with Status */}
-      <div className="max-w-6xl mx-auto">
-        {phases.map((phase, i) => (
-          <div
-            key={i}
-            className={`flex items-start gap-6 mb-8 p-6 rounded-xl border border-cyan-500/30 backdrop-blur-sm transition-all duration-500 ${
-              visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
-            }`}
+      {/* Desktop: Horizontal Timeline */}
+      <div className="hidden md:block">
+        {/* Simple Road Line */}
+        <div className="relative max-w-4xl mx-auto mb-12">
+          <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-700 transform -translate-y-1/2"></div>
+          
+          {/* Moving Truck */}
+          <div 
+            className="absolute top-1/2 transform -translate-y-1/2 z-10"
             style={{
-              transitionDelay: visible ? `${i * 100}ms` : "0ms"
+              left: `${truckPosition}%`,
+              transition: 'left 0.1s linear'
             }}
           >
-            <div className="flex-shrink-0 relative">
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg ${getStatusColor(phase.status)}`}>
-                {i + 1}
-              </div>
-              {/* Status Badge */}
-              <div className={`absolute -top-2 -right-2 w-6 h-6 rounded-full border-2 border-white flex items-center justify-center ${getStatusColor(phase.status)}`}>
-                {getStatusIcon(phase.status)}
-              </div>
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-3">
-                <h3 className="text-2xl font-bold text-cyan-300">
-                  {phase.title}
-                </h3>
-                <span className={`text-xs px-3 py-1 rounded-full ${
-                  phase.status === 'completed' ? 'bg-green-500/20 text-green-400' :
-                  phase.status === 'live' ? 'bg-cyan-500/20 text-cyan-400 animate-pulse' :
-                  'bg-gray-500/20 text-gray-400'
-                }`}>
-                  {getStatusText(phase.status)}
-                </span>
-              </div>
-              <div className="text-lg font-semibold text-blue-400 mb-4">
-                {phase.period}
-              </div>
-              <ul className="grid md:grid-cols-2 gap-2">
-                {phase.items.map((item, itemIndex) => (
-                  <li key={itemIndex} className="flex items-start space-x-2 text-cyan-200">
-                    <span className="text-cyan-400 mt-1">🔸</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <FaTruckMonster className="text-cyan-400 text-4xl" />
           </div>
-        ))}
+
+          {/* Phase Dots with Status */}
+          <div className="relative flex justify-between">
+            {phases.map((phase, i) => (
+              <div
+                key={i}
+                className={`w-4 h-4 rounded-full border-2 ${getStatusColor(phase.status)}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Phase Boxes */}
+        <div className="max-w-6xl mx-auto">
+          {phases.map((phase, i) => (
+            <div
+              key={i}
+              className={`flex items-start gap-6 mb-8 p-6 rounded-xl border border-cyan-500/30 backdrop-blur-sm transition-all duration-500 ${
+                visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
+              }`}
+              style={{
+                transitionDelay: visible ? `${i * 100}ms` : "0ms"
+              }}
+            >
+              <div className="flex-shrink-0 relative">
+                <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg ${getStatusColor(phase.status)}`}>
+                  {i + 1}
+                </div>
+                <div className={`absolute -top-2 -right-2 w-6 h-6 rounded-full border-2 border-white flex items-center justify-center ${getStatusColor(phase.status)}`}>
+                  {getStatusIcon(phase.status)}
+                </div>
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-3">
+                  <h3 className="text-2xl font-bold text-cyan-300">
+                    {phase.title}
+                  </h3>
+                  <span className={`text-xs px-3 py-1 rounded-full ${
+                    phase.status === 'completed' ? 'bg-green-500/20 text-green-400' :
+                    phase.status === 'live' ? 'bg-cyan-500/20 text-cyan-400 animate-pulse' :
+                    'bg-gray-500/20 text-gray-400'
+                  }`}>
+                    {getStatusText(phase.status)}
+                  </span>
+                </div>
+                <div className="text-lg font-semibold text-blue-400 mb-4">
+                  {phase.period}
+                </div>
+                <ul className="grid lg:grid-cols-2 gap-2">
+                  {phase.items.map((item, itemIndex) => (
+                    <li key={itemIndex} className="flex items-start space-x-2 text-cyan-200">
+                      <span className="text-cyan-400 mt-1">🔸</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Mobile CTA */}
+      <div className="block md:hidden text-center mt-8">
+        <p className="text-cyan-300 text-sm mb-4">
+          Tap on each phase to see details
+        </p>
+        <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl font-bold text-white text-sm">
+          Learn More About REST
+        </button>
       </div>
     </section>
   );
