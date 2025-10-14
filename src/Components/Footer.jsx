@@ -20,33 +20,33 @@ export default function Footer() {
         {/* Social Links */}
         <div className="flex space-x-6 text-2xl">
           <a
-            href="#"
+            href="https://x.com/RealRest01"
             className="hover:text-cyan-400 transition-colors duration-300"
             aria-label="Twitter"
           >
             <FaTwitter />
           </a>
           <a
-            href="#"
+            href="https://t.me/realtoken"
             className="hover:text-blue-400 transition-colors duration-300"
             aria-label="Telegram"
           >
             <FaTelegramPlane />
           </a>
           <a
-            href="#"
+            href="https://discord.gg/HBdpy6YyG"
             className="hover:text-purple-400 transition-colors duration-300"
             aria-label="Discord"
           >
             <FaDiscord />
           </a>
-          <a
+          {/* <a
             href="#"
             className="hover:text-cyan-300 transition-colors duration-300"
             aria-label="Website"
           >
             <FaGlobe />
-          </a>
+          </a> */}
         </div>
       </div>
 
