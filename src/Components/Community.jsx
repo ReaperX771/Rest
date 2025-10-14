@@ -102,7 +102,7 @@ export default function Community() {
                 Powered by 6Minutes
               </p>
               <p className="text-gray-400 text-xs sm:text-sm mt-1">
-                Building the future of decentralized payments
+                Building the future of decentralized solution
               </p>
             </div>
 
