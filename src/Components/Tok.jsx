@@ -111,7 +111,7 @@ export default function Tokenomics() {
             <h3 className="text-xl font-bold text-cyan-400 mb-4">Transparency & Security</h3>
             <p className="text-cyan-200">
               Contract Address Renounced • Full audit and public wallet disclosures before official app integration • 
-              Website Launch November 7th, 2025
+              Website Launch October 7th, 2025
             </p>
           </div>
         </div>
