@@ -39,7 +39,7 @@ export default function Roadmap() {
       items: [
         "Launch of REST Token on Solana",
         "Contract locked and liquidity sealed forever",
-        "Official Website Launch (Nov 7, 2025)",
+        "Official Website Launch (Oct 7, 2025)",
         "Fair Launch with no pre-sale",
         "Community establishment",
         "Listing on DEX (Raydium / Jupiter)"
