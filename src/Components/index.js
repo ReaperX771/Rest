@@ -9,6 +9,8 @@ import Utility from "./Utility";
 import Value from "./Value";
 import Governance from "./Governance";
 import Book from "./Book";
+import Partners from "./Partners";
+import FoodSecurity from "./FoodSecurity";
 
 export { Header , Hero , About , Tok , Road , Community ,
-     Footer  , Utility , Value , Governance , Book };
+     Footer  , Utility , Value , Governance , Book , Partners , FoodSecurity };

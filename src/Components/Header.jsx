@@ -12,6 +12,8 @@ import {
   FaPuzzlePiece,
   FaGem,
   FaVoteYea,
+  FaHandshake,
+  FaSeedling,
 } from "react-icons/fa";
 import logo from '../assets/images/logo.png'
 
@@ -21,8 +23,10 @@ export default function Header() {
   const links = [
     { id: "home", label: "Home", icon: <FaHome /> },
     { id: "about", label: "About", icon: <FaInfoCircle /> },
+    { id: "partners", label: "Partners", icon: <FaHandshake /> },
     { id: "tokenomics", label: "Tokenomics", icon: <FaCoins /> },
     { id: "utility", label: "Utility", icon: <FaPuzzlePiece /> },
+    { id: "food-security", label: "Food Security", icon: <FaSeedling /> },
     { id: "value", label: "Value", icon: <FaGem /> },
     { id: "governance", label: "Governance", icon: <FaVoteYea /> },
     { id: "roadmap", label: "Roadmap", icon: <FaRoad /> },
@@ -39,13 +43,13 @@ export default function Header() {
         <img className="w-17" src={logo}/>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden xl:flex items-center gap-6">
           {links.map((link) => (
             <AnchorLink
               key={link.id}
               href={`#${link.id}`}
               offset="100"
-              className="flex items-center gap-2 text-gray-300 hover:text-blue-300 transition-colors duration-300"
+              className="flex items-center gap-2 whitespace-nowrap text-sm text-gray-300 hover:text-blue-300 transition-colors duration-300"
             >
               {link.icon}
               <span>{link.label}</span>
@@ -56,7 +60,7 @@ export default function Header() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setNavOpen(!navOpen)}
-          className="text-2xl lg:hidden text-blue-300"
+          className="text-2xl xl:hidden text-blue-300"
         >
           {navOpen ? <FaTimes /> : <FaBars />}
         </button>
@@ -64,7 +68,7 @@ export default function Header() {
 
       {/* Mobile Dropdown */}
       {navOpen && (
-        <div className="lg:hidden flex flex-col bg-black/90 border-t border-blue-900/40 py-4 px-6">
+        <div className="xl:hidden flex flex-col bg-black/90 border-t border-blue-900/40 py-4 px-6">
           {links.map((link) => (
             <AnchorLink
               key={link.id}

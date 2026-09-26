@@ -27,7 +27,7 @@ export default function Community() {
       icon: <FaTelegramPlane />, 
       label: "Telegram", 
       color: "text-cyan-400",
-      link: "https://t.me/realtoken"
+      link: "https://t.me/RealRestToken"
     },
     { 
       icon: <FaTwitter />, 

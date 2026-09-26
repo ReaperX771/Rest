@@ -27,7 +27,7 @@ export default function Footer() {
             <FaTwitter />
           </a>
           <a
-            href="https://t.me/realtoken"
+            href="https://t.me/RealRestToken"
             className="hover:text-blue-400 transition-colors duration-300"
             aria-label="Telegram"
           >
