@@ -111,8 +111,8 @@ export default function FoodSecurity() {
             🌾 Food Security
           </h2>
           <p className="mt-6 text-base sm:text-lg text-cyan-200 max-w-3xl mx-auto leading-relaxed">
-            Food is the most everyday payment of all. REST connects farmers, markets and families on one transparent
-            payment rail — so value flows to the people who grow food and the communities who need it most.
+            Every meal begins with a transaction. REST connects farmers, markets and families on one transparent
+            payment rail,helping value move directly through the food economy - from the people who grow it to the communities who depends on it.
           </p>
         </div>
 
