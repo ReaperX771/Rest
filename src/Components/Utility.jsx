@@ -166,13 +166,6 @@ export default function Utility() {
             );
           })}
         </div>
-
-        {/* Mobile Instructions */}
-        <div className="block md:hidden text-center mt-8">
-          <p className="text-cyan-300 text-sm">
-            Tap on each sector to learn more
-          </p>
-        </div>
       </div>
     </section>
   );

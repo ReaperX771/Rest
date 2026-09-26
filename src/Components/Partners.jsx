@@ -42,9 +42,7 @@ export default function Partners() {
   ];
 
   const unlocks = [
-    { icon: FaMobileAlt, label: "ConnectGlobal94 App" },
-    { icon: FaExchangeAlt, label: "Cross-border Payments" },
-    { icon: FaBookOpen, label: "Crypto 360 eBook" },
+   
   ];
 
   const reveal = visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8";
